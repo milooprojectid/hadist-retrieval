@@ -41,10 +41,10 @@ stopwords = load_stopwords('./data_label/stopwords/stopword_list_TALA.txt')
 factory = StemmerFactory()
 stemmer = factory.create_stemmer()
 
-df_hadist_bukhari = pd.read_csv('./datasets/had_abudaud.csv',names=['L1','L2','Text','Processed'])
+hadist = pd.read_csv('./datasets/hadist.csv',delimiter=';')
 
 vectorizer = TfidfVectorizer()
-X = vectorizer.fit_transform(df_hadist_bukhari.Processed)
+X = vectorizer.fit_transform(hadist.Processed)
 vectorizer.get_feature_names()[:10]
 
 sentence = 'bagaimana cara bercerai ?'
@@ -68,6 +68,7 @@ if sum(res)>0:
 
 if valid:
     for i in range(len(top_idx)):
-        print(res[top_idx[i]], df_hadist_bukhari.iloc[top_idx[i]][2] + "\n")
+        # res[top_idx[i]]
+        print("[" + hadist.iloc[top_idx[i]][4] + "] " + hadist.iloc[top_idx[i]][2] + "\n")
 else:
     print('dindt match, someting wrong')
